@@ -1,0 +1,244 @@
+GoldenDict / mdxtogd 语言输入表
+================================
+
+一、config.txt 不要求只能写代码
+--------------------------------
+
+INDEX_LANGUAGE / CONTENTS_LANGUAGE 可以直接写：
+
+1. 推荐三字码
+2. 两字母代码
+3. 英文全称（大小写均可）
+4. 中文全称
+5. 常见中文简称
+
+程序最终会统一归一化为内部三字码。
+
+
+二、最常用示例
+--------------------------------
+
+英语 -> eng
+
+可填写：
+eng
+en
+English
+english
+英语
+英文
+英
+
+
+中文 -> zho
+
+可填写：
+zho
+zh
+chi
+cn
+Chinese
+chinese
+中文
+汉语
+漢語
+汉文
+漢文
+华语
+華語
+国语
+國語
+汉
+漢
+中
+
+
+三、常用语言
+--------------------------------
+
+内部代码   语言                 常见输入示例
+------------------------------------------------------------
+eng        English / 英语       eng, en, English, 英语, 英文, 英
+zho        Chinese / 中文       zho, zh, chi, Chinese, 中文, 汉语, 汉, 中
+fra        French / 法语        fra, fr, fre, French, 法语, 法文, 法
+deu        German / 德语        deu, de, ger, German, 德语, 德文, 德
+spa        Spanish / 西班牙语   spa, es, Spanish, 西班牙语, 西语, 西
+ita        Italian / 意大利语   ita, it, Italian, 意大利语, 意语, 意
+por        Portuguese / 葡萄牙语 por, pt, Portuguese, 葡萄牙语, 葡语, 葡
+jpn        Japanese / 日语      jpn, ja, Japanese, 日语, 日文, 日
+kor        Korean / 韩语        kor, ko, Korean, 韩语, 韩文, 韩
+rus        Russian / 俄语       rus, ru, Russian, 俄语, 俄文, 俄
+nld        Dutch / 荷兰语       nld, nl, dut, Dutch, 荷兰语, 荷
+lat        Latin / 拉丁语       lat, la, Latin, 拉丁语, 拉丁文, 拉
+ara        Arabic / 阿拉伯语    ara, ar, Arabic, 阿拉伯语, 阿
+ell        Greek / 希腊语       ell, el, gre, Greek, 希腊语, 希
+ces        Czech / 捷克语       ces, cs, cze, Czech
+slk        Slovak / 斯洛伐克语  slk, sk, slo, Slovak
+ron        Romanian / 罗马尼亚语 ron, ro, rum, Romanian
+hun        Hungarian / 匈牙利语 hun, hu, Hungarian
+pol        Polish / 波兰语      pol, pl, Polish
+tur        Turkish / 土耳其语   tur, tr, Turkish
+vie        Vietnamese / 越南语  vie, vi, Vietnamese, 越南语, 越
+tha        Thai / 泰语          tha, th, Thai, 泰语, 泰
+ind        Indonesian / 印尼语  ind, id, Indonesian
+msa        Malay / 马来语       msa, ms, may, Malay
+hin        Hindi / 印地语       hin, hi, Hindi
+ben        Bengali / 孟加拉语   ben, bn, Bengali
+urd        Urdu / 乌尔都语      urd, ur, Urdu
+fas        Persian / 波斯语     fas, fa, per, Persian
+heb        Hebrew / 希伯来语    heb, he, Hebrew
+swe        Swedish / 瑞典语     swe, sv, Swedish
+dan        Danish / 丹麦语      dan, da, Danish
+nor        Norwegian / 挪威语   nor, no, Norwegian
+fin        Finnish / 芬兰语     fin, fi, Finnish
+ukr        Ukrainian / 乌克兰语 ukr, uk, Ukrainian
+cat        Catalan / 加泰罗尼亚语 cat, ca, Catalan
+eus        Basque / 巴斯克语    eus, eu, baq, Basque
+cym        Welsh / 威尔士语     cym, cy, wel, Welsh
+sqi        Albanian / 阿尔巴尼亚语 sqi, sq, alb, Albanian
+hye        Armenian / 亚美尼亚语 hye, hy, arm, Armenian
+kat        Georgian / 格鲁吉亚语 kat, ka, geo, Georgian
+isl        Icelandic / 冰岛语   isl, is, ice, Icelandic
+mkd        Macedonian / 马其顿语 mkd, mk, mac, Macedonian
+mri        Maori / 毛利语       mri, mi, mao, Maori
+mya        Burmese / 缅甸语     mya, my, bur, Burmese
+bod        Tibetan / 藏语       bod, bo, tib, Tibetan
+srp        Serbian / 塞尔维亚语 srp, sr, Serbian
+hrv        Croatian / 克罗地亚语 hrv, hr, Croatian
+slv        Slovenian / 斯洛文尼亚语 slv, sl, Slovenian
+bul        Bulgarian / 保加利亚语 bul, bg, Bulgarian
+
+Unk        Unknown / 无法判断
+
+
+四、自动推断
+--------------------------------
+
+英汉   -> eng / zho
+汉英   -> zho / eng
+英英   -> eng / eng
+法汉   -> fra / zho
+德汉   -> deu / zho
+日汉   -> jpn / zho
+韩汉   -> kor / zho
+俄汉   -> rus / zho
+西汉   -> spa / zho
+意汉   -> ita / zho
+葡汉   -> por / zho
+
+EN-ZH  -> eng / zho
+POR-ZH -> por / zho
+PT_ZH  -> por / zho
+IT-EN   -> ita / eng
+
+
+五、DSL 写入方式
+--------------------------------
+
+config.txt：
+
+INDEX_LANGUAGE = 英语
+CONTENTS_LANGUAGE = 中文
+
+内部归一化：
+
+eng / zho
+
+DSL：
+
+#INDEX_LANGUAGE "English"
+#CONTENTS_LANGUAGE "Chinese"
+
+Unk 则写为 Any。
+
+
+六、默认 Android 目录
+--------------------------------
+
+install_dir 留空时自动：
+
+INDEX=eng, CONTENTS=zho
+-> ENG/ENG-ZHO/{dictionary_name}
+
+INDEX=eng, CONTENTS=eng
+-> ENG/ENG-ENG/{dictionary_name}
+
+INDEX=zho, CONTENTS=eng
+-> ZHO/ZHO-ENG/{dictionary_name}
+
+INDEX=Unk, CONTENTS=Unk
+-> UNK/UNK-UNK/{dictionary_name}
+
+
+七、StarDict 的 GoldenDict 语言识别
+--------------------------------
+
+StarDict 本身没有 DSL 那样的：
+
+#INDEX_LANGUAGE
+#CONTENTS_LANGUAGE
+
+mdxtogd 会利用 GoldenDict 的 StarDict 文件名语言识别规则，
+自动添加 ISO 639-1 两字母语言对。
+
+例如：
+
+INDEX_LANGUAGE = eng
+CONTENTS_LANGUAGE = zho
+
+正式 StarDict：
+
+词典名.en-zh.ifo
+词典名.en-zh.idx
+词典名.en-zh.dict
+词典名.en-zh.dict.dz
+
+但是 .ifo 内仍保持：
+
+bookname=词典名
+
+因此 GoldenDict 可识别 English -> Chinese，同时词典显示名保持原名。
+
+常见转换：
+
+eng -> en
+zho -> zh
+fra -> fr
+deu -> de
+spa -> es
+ita -> it
+por -> pt
+jpn -> ja
+kor -> ko
+rus -> ru
+
+如果任一端无法可靠转换为 ISO 639-1 两字母代码，
+则不添加语言后缀。
+
+
+八、词典图标文件名
+--------------------------------
+
+图标与 StarDict 使用相同 basename。
+
+例如：
+
+INDEX_LANGUAGE = eng
+CONTENTS_LANGUAGE = zho
+
+输出：
+
+词典名.en-zh.ifo
+词典名.en-zh.idx
+词典名.en-zh.dict
+词典名.en-zh.dict.dz
+词典名.en-zh.bmp
+
+DSL 仍然是：
+
+词典名.dsl
+词典名.dsl.files.zip
+
+如果语言无法确定，没有生成语言对后缀，则图标退回：
+
+词典名.bmp

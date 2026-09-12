@@ -1,0 +1,140 @@
+# ============================================================
+# MDX / Tabfile / MDict Textfile -> Android GoldenDict
+# 配置格式：key = value
+#
+# 只有 source_file 是必须填写的。
+# ============================================================
+
+# [必须] 输入文件
+#
+# 支持：
+#   .mdx
+#   Tabfile
+#   MDict Textfile
+#
+# MDict Textfile 格式：
+#
+#   词条1
+#   内容第1行
+#   内容第2行
+#   </>
+#   词条2
+#   内容
+#   </>
+#
+
+source_file = ./词典.mdx
+
+
+
+# 通常保持 auto 即可：
+#   .mdx                 -> MDX
+#   .tab/.tabfile/.tsv   -> Tabfile
+#   含独立 </> 分隔行    -> Textfile
+#   其它有TAB分隔的文本   -> Tabfile
+#
+# 如自动判断失败，可手工写：
+#   mdx / tabfile / textfile
+input_type = auto
+
+
+# ============================================================
+# ★★★ 强烈建议填写：词头语言 / 释义语言 ★★★
+#
+# 可以写代码、英文全称、中文全称或常用简称：
+#
+# 英语：
+#   eng / en / English / 英语 / 英文 / 英
+#
+# 中文：
+#   zho / zh / chi / Chinese / 中文 / 汉语 / 汉 / 中
+#
+# 留空时从输入文件名 / dictionary_name 推断。
+# 无法判断 -> Unk / Unk
+# ============================================================
+INDEX_LANGUAGE =
+CONTENTS_LANGUAGE =
+
+
+# [可选] 留空 = 输入文件名（不含后缀）
+dictionary_name =
+
+# [可选] 留空 = 在输入文件同目录建立一个与输入文件同名的工作目录
+output_dir =
+
+
+device_goldendict_root = /storage/emulated/0/GoldenDict
+
+# 建议留空。
+# 默认自动：
+#   eng + zho -> ENG/ENG-ZHO/{dictionary_name}
+#   zho + eng -> ZHO/ZHO-ENG/{dictionary_name}
+install_dir =
+
+
+# CSS：
+#   zip    = 放入 .dsl.files.zip
+#   folder = 独立放正式词典目录
+css_storage = zip
+
+# .dsl.files.zip 内资源：
+#   root     = 全部放根目录，同名自动改名
+#   original = 保留原始目录结构
+resource_layout = original
+
+
+# 本地资源搜索目录（相对于输入文件所在目录）
+# 多个目录用 ; 分隔
+local_resource_dirs = .
+local_resource_recursive = true
+
+rewrite_inside_resources = true
+
+# true  = 同时保留 .dict 和 .dict.dz
+# false = 仅保留 .dict
+stardict_dictzip = true
+stardict_html = true
+
+# dictionary_name.android.txt 永远保留。
+# true 时另外保留转换前的 raw Tabfile。
+keep_raw_tabfile = false
+
+
+# ============================================================
+# StarDict 语言识别
+#
+# 无需额外设置。
+#
+# 程序根据 INDEX_LANGUAGE / CONTENTS_LANGUAGE 自动给 StarDict
+# 文件名增加 GoldenDict 可识别的 ISO 639-1 两字母语言对：
+#
+#   eng + zho -> 词典名.en-zh.ifo / .idx / .dict / .dict.dz
+#   zho + eng -> 词典名.zh-en.*
+#   eng + eng -> 词典名.en-en.*
+#
+# .ifo 内 bookname 仍保持 dictionary_name。
+#
+# 如果任一语言为 Unk，或无法可靠映射到两字母代码，
+# 则不添加语言后缀，避免错误语言标记。
+# ============================================================
+
+
+# ============================================================
+# 词典图标命名
+#
+# 图标与 StarDict 使用相同的 basename：
+#
+#   eng + zho:
+#     词典名.en-zh.ifo
+#     词典名.en-zh.idx
+#     词典名.en-zh.dict
+#     词典名.en-zh.dict.dz
+#     词典名.en-zh.bmp
+#
+# DSL 仍保持：
+#     词典名.dsl
+#     词典名.dsl.files.zip
+#
+# 如果无法得到可靠语言对，则退回：
+#     词典名.bmp
+# ============================================================
